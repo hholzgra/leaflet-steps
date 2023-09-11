@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Buttons</title>
+    <meta charset="utf-8" />
+    <script src="../../bower_components/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="../../bower_components/leaflet/dist/leaflet.css"/>
+    <script src="../../bower_components/leaflet-providers/leaflet-providers.js"></script>
+    <link rel="stylesheet" href="../../bower_components/leaflet-search/src/leaflet-search.css"/>
+    <script src="../../bower_components/leaflet-search/src/leaflet-search.js"></script>
+    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../../bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css"/>
+    <script src="../../bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="../../bower_components/Leaflet.EasyButton/src/easy-button.css"/>
+    <script src="../../bower_components/Leaflet.EasyButton/src/easy-button.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #mapDiv {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='mapDiv'></div>
+    <script>
+      var latLon = [53.56250, 9.95982];
+      var zoom = 18;
+
+      var osmLayer = L.tileLayer.provider('OpenStreetMap.Mapnik');
+      var germanLayer = L.tileLayer.provider('OpenStreetMap.DE');
+
+      var myMap = L.map('mapDiv', {layers: osmLayer}).setView(latLon, zoom);
+
+      var baseLayers = {
+                         'OSM': osmLayer, 
+                         'German': germanLayer
+                       };
+      L.control.layers(baseLayers).addTo(myMap);
+
+      var searchControl = new L.Control.Search({
+        url: 'http://nominatim.openstreetmap.org/search?format=json&q={s}',
+        jsonpParam: 'json_callback',
+        propertyName: 'display_name',
+        propertyLoc: ['lat','lon'],
+        circleLocation: true,
+        markerLocation: false,                  
+        autoType: false,
+        autoCollapse: true,
+        minLength: 2,
+        zoom: 17
+      });
+
+      myMap.addControl(searchControl);
+
+      var redMarker = L.AwesomeMarkers.icon({
+        icon: 'coffee',
+        prefix: 'fa',
+        markerColor: 'red'
+      });
+
+      var poi = L.marker(latLon, {icon: redMarker}).addTo(myMap);
+      poi.bindPopup("<b>test</b><hr/>foobar");
+
+      var circle = L.circle(latLon, 50, {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5
+      }).addTo(myMap);
+      
+      var polygon = L.polygon([
+        [53.56210, 9.95999],
+        [53.56230, 9.95970],
+        [53.56250, 9.95970]
+      ]).addTo(myMap);
+
+      
+      L.easyButton('fa-coffee', function(btn, map){
+        map.setView(latLon);
+      }).addTo(myMap);
+
+    </script>
+  </body>
+</html>
+

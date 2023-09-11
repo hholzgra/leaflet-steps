@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make the map use the full window</title>
+    <meta charset="utf-8" />
+    <script src="../../bower_components/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="../../bower_components/leaflet/dist/leaflet.css"/>
+    <script src="../../bower_components/leaflet-providers/leaflet-providers.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #mapDiv {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='mapDiv'></div>
+    <script>
+      var latLon = [53.56250, 9.95982];
+      var zoom = 18;
+
+      var osmLayer = L.tileLayer.provider('OpenStreetMap.Mapnik');
+
+      var myMap = L.map('mapDiv', { layers: osmLayer}).setView(latLon, zoom);
+    </script>
+  </body>
+</html>
+

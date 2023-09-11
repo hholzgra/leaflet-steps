@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A Simple Map</title>
+    <meta charset="utf-8" />
+    <script src="../../bower_components/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="../../bower_components/leaflet/dist/leaflet.css"/>
+  </head>
+  <body>
+    <div id='mapDiv' style='width: 800px; height: 600px'></div>
+    <script>
+      var latLon = [53.56250, 9.95982];
+      var zoom = 18;
+
+      var osmLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+                                 {attribution: 'Map data &copy; OpenStreetMap contributors'});
+
+      var myMap = L.map('mapDiv', { layers: osmLayer}).setView(latLon, zoom);
+    </script>
+  </body>
+</html>
+

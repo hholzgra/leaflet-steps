@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add a mini map</title>
+    <meta charset="utf-8" />
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css"/>
+    <script src="../bower_components/leaflet-providers/leaflet-providers.js"></script>
+    <link rel="stylesheet" href="../bower_components/leaflet-search/src/leaflet-search.css"/>
+    <script src="../bower_components/leaflet-search/src/leaflet-search.js"></script>
+    <script src="../bower_components/leaflet-minimap/dist/Control.MiniMap.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/leaflet-minimap/dist/Control.MiniMap.min.css"/>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #mapDiv {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='mapDiv'></div>
+    <script>
+      var latLon = [53.56250, 9.95982];
+      var zoom = 18;
+
+      var osmLayer = L.tileLayer.provider('OpenStreetMap.Mapnik');
+      var germanLayer = L.tileLayer.provider('OpenStreetMap.DE');
+
+      var myMap = L.map('mapDiv', {layers: osmLayer}).setView(latLon, zoom);
+
+      var baseLayers = {
+                         'OSM': osmLayer, 
+                         'German': germanLayer
+                       };
+      L.control.layers(baseLayers).addTo(myMap);
+
+      var searchControl = new L.Control.Search({
+        url: 'http://nominatim.openstreetmap.org/search?format=json&q={s}',
+        jsonpParam: 'json_callback',
+        propertyName: 'display_name',
+        propertyLoc: ['lat','lon'],
+        circleLocation: true,
+        markerLocation: false,                  
+        autoType: false,
+        autoCollapse: true,
+        minLength: 2,
+        zoom: 17
+      });
+
+      myMap.addControl(searchControl);
+
+      var miniMap = new L.Control.MiniMap(osmLayer).addTo(myMap);
+
+    </script>
+  </body>
+</html>
+
