@@ -1,0 +1,9 @@
+# Ignore external node /npm stuff
+node_modules/
+
+# Ignore temp files
+*~
+*.swp
+\#*
+.#*
+
