@@ -1,23 +1,17 @@
 <html>
  <head>
   <title>Source</title>
-  <script type="text/javascript" src="syntaxhighlighter/scripts/shCore.js"></script>
-  <script type='text/javascript' src='syntaxhighlighter/scripts//shBrushDiff.js'></script>
-  <link href="syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
-  <link href="syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="node_modules/@highlightjs/cdn-assets/styles/default.min.css">
+  <script src="node_modules/@highlightjs/cdn-assets/highlight.min.js"></script>
  </head>
  <body><!-- foo -->
-  <pre class='brush: diff'>
-<?php
+  <pre><code class="language-diff"><?php
    $fp = popen("/usr/bin/diff -ubBw " . $_GET['old'] . " " . $_GET['new'], "r");
    while (!feof($fp)) {
      echo htmlspecialchars(fread($fp, 4096));
    }
    pclose($fp);
-?>
-  </pre>
-  <script type="text/javascript">
-     SyntaxHighlighter.all()
-  </script>
+?></code></pre>
+  <script>hljs.highlightAll();</script>
  </body>
 </html>
