@@ -1,7 +1,7 @@
 <html>
  <head>
   <title>Leaflet: Step by Step</title>
-  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
   <script>
 function foo(name, notes) 
 {
